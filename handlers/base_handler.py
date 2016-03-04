@@ -24,3 +24,19 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def get_index_page(self):
         pass
+
+    @property
+    def db(self):
+        return self.application.db
+
+    @property
+    def client(self):
+        return self.application.client
+
+    @property
+    def cnx(self):
+        return self.application.cnx
+
+    @property
+    def cursor(self):
+        return self.application.cursor

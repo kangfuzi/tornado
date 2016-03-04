@@ -5,7 +5,8 @@ import os
 import signal
 from tornado.options import options
 import logging
-
+from pymongo import MongoClient
+import mysql.connector
 from setting import define_options
 
 
@@ -42,7 +43,18 @@ routs = [
     (r"/login/([a-zA-Z]*)/?", LoginHandler),
 ]
 
-application = tornado.web.Application(routs, **settings)
+client = MongoClient(options.mongo_ip)
+db = client[options.mongo_db]
+cnx = mysql.connector.connect(user=options.mysql_user, password=options.mysql_password, host=options.mysql_host,
+                              database=options.mysql_db_name, use_unicode=True, charset="utf8", autocommit=True)
+cursor = cnx.cursor()
+
+application = tornado.web.Application(routs,**settings)
+
+application.client = client
+application.db = db
+application.cnx = cnx
+application.cursor = cursor
 
 
 def sigint_handler():
