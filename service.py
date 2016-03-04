@@ -49,7 +49,7 @@ cnx = mysql.connector.connect(user=options.mysql_user, password=options.mysql_pa
                               database=options.mysql_db_name, use_unicode=True, charset="utf8", autocommit=True)
 cursor = cnx.cursor()
 
-application = tornado.web.Application(routs,**settings)
+application = tornado.web.Application(routs, **settings)
 
 application.client = client
 application.db = db
