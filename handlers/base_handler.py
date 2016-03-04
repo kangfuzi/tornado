@@ -5,6 +5,13 @@ import tornado.web
 
 class BaseHandler(tornado.web.RequestHandler):
 
+    def prepare(self):
+        
+        self.title = None
+
+        if not self.cnx.is_connect():
+            return self.cnx.reconnect()
+
     @tornado.web.authenticated
     def get(self):
         self.get_index_page()
@@ -24,6 +31,9 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def get_index_page(self):
         pass
+
+    def render(self, template_name, **kwargs):
+        return super(BaseHandler, self).render(template_name, title=self.title, **kwargs)
 
     @property
     def db(self):
