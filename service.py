@@ -57,7 +57,7 @@ application.cnx = cnx
 application.cursor = cursor
 
 
-def sigint_handler():
+def sigint_handler(signum, frame):
     tornado.ioloop.IOLoop.instance().stop()
 
 
@@ -69,3 +69,4 @@ if __name__ == "__main__":
     signal.signal(signal.SIGTERM, sigint_handler)
     signal.signal(signal.SIGINT, sigint_handler)
     tornado.ioloop.IOLoop.instance().start()
+    logging.info("Press shutdown...")
