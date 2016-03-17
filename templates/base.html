@@ -2,7 +2,9 @@
 <html>
 <head>
     <meta charset='utf-8'>
-    <title>{%block title%}{%endblock%}</title>
+    <title>{{title}}</title>
+    <script type="text/javascript" src="{{static_url('js/jquery.min.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{static_url('css/bootstrap.min.css')}}">
     {% block head %}{% endblock %}
 </head>
 
